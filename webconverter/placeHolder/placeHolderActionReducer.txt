@@ -1,0 +1,28 @@
+import {@FileNameMarker_SUCCESS, @FileNameMarker_FAILURE,  @FileNameMarker_REQUEST } from '../actions/register';
+
+export default function register(state = {}, action) {
+
+switch (action.type) {
+
+case @FileNameMarker_REQUEST:
+return Object.assign({}, state, {
+
+ async:"loading"
+ });
+ 
+ case @FileNameMarker_SUCCESS:
+  return Object.assign({}, state, {
+ async:"success",
+ data: action.req.data
+});
+
+ case @FileNameMarker_FAILURE:
+  return Object.assign({}, state, {
+  error: action.error.data,
+   async:"failure"
+  });
+  
+ default:
+  return state;
+ }
+}

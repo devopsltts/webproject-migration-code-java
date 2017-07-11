@@ -1,0 +1,7 @@
+com\restgen\util\RoaGenerator.class
+com\restgen\model\Accountant.class
+com\restgen\util\MethodParam.class
+com\restgen\util\RoaMethod.class
+com\restgen\util\MethodParser.class
+com\huawei\rest\FeeReportRoaService.class
+com\restgen\util\RoaControllerCatalog.class
