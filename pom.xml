@@ -44,6 +44,11 @@
                 <plugins>
 		    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.17</version>
+                    </plugin>
+		    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>3.8</version>
                     </plugin>
@@ -74,6 +79,11 @@
             </build>
 	    <reporting>
                 <plugins>
+		    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.17</version>
+                    </plugin>
 		    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
