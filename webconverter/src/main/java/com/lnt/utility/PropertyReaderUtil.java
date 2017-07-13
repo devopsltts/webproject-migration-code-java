@@ -13,8 +13,8 @@ import java.util.*;
 public class PropertyReaderUtil {
 
 //	public static final String PROP_FILENAME = "properties"+File.separator+"myapp.properties";
-	public static Properties myAppProps;
-	public static FileInputStream input;
+	public static final Properties myAppProps;
+
 	static {
 
 		myAppProps = new Properties();

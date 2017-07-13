@@ -9,9 +9,9 @@ import java.io.File;
 
 public class PropertyToolUtil {
 
-	public static final String PROP_FILENAME = "properties"+File.separator+"classDependency.properties";
-	public static Properties myAppProps;
-	public static FileInputStream input;
+//	public static final String PROP_FILENAME = "properties"+File.separator+"classDependency.properties";
+	public static final Properties myAppProps;
+
 	static {
 		
 		myAppProps = new Properties();

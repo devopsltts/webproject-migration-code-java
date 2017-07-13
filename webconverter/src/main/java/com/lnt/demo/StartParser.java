@@ -93,7 +93,7 @@ public class StartParser {
 	static JPanel panel = new JPanel();
 
 	static Map<String, String> CsvData = new HashMap<String, String>();
-	
+
 	static ClassDependencyResolver4 cdr = new ClassDependencyResolver4();
 
 	static String fileNamePath;
@@ -162,18 +162,20 @@ public class StartParser {
 		// For Top panel Image Icon
 		JLabel label1 = new JLabel();
 
-		ImageIcon icon1 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/Screenshot_Swing.png")).getImage().getScaledInstance(120,
-				120, Image.SCALE_DEFAULT));
+		ImageIcon icon1 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/Screenshot_Swing.png"))
+				.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT));
 		label1.setIcon(icon1);
 		label1.setBounds(120, 20, 300, 200);
 
 		JLabel label2 = new JLabel();
-		ImageIcon icon2 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/Arrow.jpg")).getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/Arrow.jpg")).getImage()
+				.getScaledInstance(120, 120, Image.SCALE_DEFAULT));
 		label2.setIcon(icon2);
 		label2.setBounds(350, 20, 300, 220);
 
 		JLabel label3 = new JLabel();
-		ImageIcon icon3 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/htmlImage.png")).getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT));
+		ImageIcon icon3 = new ImageIcon(new ImageIcon(StartParser.class.getResource("/images/htmlImage.png")).getImage()
+				.getScaledInstance(120, 120, Image.SCALE_DEFAULT));
 		label3.setIcon(icon3);
 		label3.setBounds(550, 20, 200, 220);
 
@@ -269,7 +271,7 @@ public class StartParser {
 				"we can select the directory to place the converted code.",
 				"Converter: Click on converter button it will be converted java swing code to Html code.",
 				"Reset: click on reset button we can erase all the text data.",
-		"logging:It will be display all the logs of conversion code with respective time and date" };
+				"logging:It will be display all the logs of conversion code with respective time and date" };
 
 		JList helpList = new JList(helpCategories);
 		JList aboutList = new JList(aboutCategories);
@@ -331,7 +333,7 @@ public class StartParser {
 				convertButton.setEnabled(false);
 				resetButton.setEnabled(false);
 				try {
-					StartFileParse();
+					startFileParse();
 				} catch (InterruptedException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -371,8 +373,7 @@ public class StartParser {
 	public static boolean createDirectoriesWithCommonParent(File parent, String... subs) {
 
 		try {
-
-			parent.mkdirs();
+	        parent.mkdirs();
 
 			if (!parent.exists() || !parent.isDirectory()) {
 				return false;
@@ -417,16 +418,18 @@ public class StartParser {
 		}
 	}
 
-	public static void ReadLogFile() throws ParserException, IOException {
+	public static void readLogFile() throws ParserException, IOException {
 
 		InputStream stream = null;
 		File propsFile = null;
 		BufferedReader br = null;
+		InputStreamReader inputStrReader = null;
 		try {
 			String home = System.getProperty("user.home");
 			propsFile = new File(home, "log4j\\log4j.properties");
 			stream = new FileInputStream(propsFile);
-			br = new BufferedReader(new InputStreamReader(stream));
+			inputStrReader = new InputStreamReader(stream);
+			br = new BufferedReader(inputStrReader);
 			String strLine;
 
 			while ((strLine = br.readLine()) != null) {
@@ -440,7 +443,7 @@ public class StartParser {
 		}
 	}
 
-	public static void StartFileParse() throws InterruptedException, IOException {
+	public static void startFileParse() throws InterruptedException, IOException {
 		String inputDir = userText.getText();
 
 		System.out.println(inputDir);
@@ -496,7 +499,7 @@ public class StartParser {
 		for (Entry<String, Map<String, String>> entry : CsvMap.entrySet()) {
 			System.out.println("CsvMap Keys ::::::" + entry.getKey() + " CsvMap Value::::::" + entry.getValue());
 		}
-		
+
 		cdr.decompiledJarFiles();
 
 		try {
@@ -515,7 +518,7 @@ public class StartParser {
 		}
 
 		try {
-			ReadLogFile();
+			readLogFile();
 		} catch (ParserException e1) {
 			logger.info("Message" + e1.getMessage());
 		}
@@ -524,7 +527,6 @@ public class StartParser {
 		placeHolderAction();
 		placeHolderReducer();
 
-	
 	}
 
 	// Exit functionality of menu bar
@@ -601,8 +603,9 @@ public class StartParser {
 
 				if (children[i].equalsIgnoreCase("server")) {
 					inputServerPath = new File(dir, children[i]);
-					System.out.println("children[i]::"+children[i]+"::inputServerPath::"+inputServerPath.getAbsolutePath());
-			
+					System.out.println(
+							"children[i]::" + children[i] + "::inputServerPath::" + inputServerPath.getAbsolutePath());
+
 					if (inputServerPath.isDirectory()) {
 						inputServerPathName = inputServerPath.getAbsolutePath();
 						System.out.println("inputServerPathName:" + inputServerPathName);
@@ -655,7 +658,8 @@ public class StartParser {
 		/*
 		 * if (!fileHtml.exists()) { fileHtml.createNewFile(); }
 		 */
-		BufferedWriter bw = new BufferedWriter(new FileWriter(fileHtml));
+		FileWriter fw = new FileWriter(fileHtml);
+		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("<!doctype html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "<meta charset=\"utf-8\">\n"
 				+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
 				+ "<link rel=\"shortcut icon\" href=\"%PUBLIC_URL%/favicon.ico\">\n"
@@ -690,8 +694,9 @@ public class StartParser {
 
 		File fileApiJs = new File(outApiJs, "fetchComponentDataBeforeRender.js");
 		File fileApiJ = new File(outApiJ, "promiseMiddleware.js");
+		FileWriter fWriterIndex = new FileWriter(fileIndexJs);
 
-		BufferedWriter bufferIndexJs = new BufferedWriter(new FileWriter(fileIndexJs));
+		BufferedWriter bufferIndexJs = new BufferedWriter(fWriterIndex);
 		bufferIndexJs.write("import \'babel-core/register\';\n" + "import ReactDOM from \'react-dom\';\n"
 				+ "import React from \'react\';\n" + "import { Router } from \'react-router\';\n"
 				+ "import { Provider } from \'react-redux\';\n" + "import { ReduxRouter } from \'redux-router\';\n"
@@ -705,7 +710,8 @@ public class StartParser {
 				+ "</ReduxRouter>\n" + "</Provider>,\n" + "document.getElementById(\'root\')\n" + ");\n");
 		bufferIndexJs.close();
 
-		BufferedWriter bufferRouteJs = new BufferedWriter(new FileWriter(fileRouteJs));
+		FileWriter fWriterRoute = new FileWriter(fileRouteJs);
+		BufferedWriter bufferRouteJs = new BufferedWriter(fWriterRoute);
 		bufferRouteJs.write("import { Route } from \"react-router\";\n" + "import React from \"react\";\n"
 				+ "import App from \"./containers/App\";\n" + "//Redux Smart\n"
 				+ "import LoginPage from \"./containers/LoginPage\";\n"
@@ -721,7 +727,8 @@ public class StartParser {
 				+ "</Route>\n" + ");\n");
 		bufferRouteJs.close();
 
-		BufferedWriter bufferStore = new BufferedWriter(new FileWriter(fileStoreJs));
+		FileWriter fWriterStore = new FileWriter(fileStoreJs);
+		BufferedWriter bufferStore = new BufferedWriter(fWriterStore);
 		bufferStore.write("import { createStore, applyMiddleware, compose } from \'redux\';\n"
 				+ "import { reduxReactRouter } from \'redux-router\'\n;" + "import thunk from \'redux-thunk\';\n"
 				+ "import createHistory from \'history/lib/createBrowserHistory\';\n"
@@ -747,7 +754,8 @@ public class StartParser {
 				+ " store.replaceReducer(nextRootReducer);\n" + "});" + "}" + "  return store;" + "}");
 		bufferStore.close();
 
-		BufferedWriter bufferContainerJs = new BufferedWriter(new FileWriter(fileContainerJs));
+		FileWriter fWriterContainer = new FileWriter(fileContainerJs);
+		BufferedWriter bufferContainerJs = new BufferedWriter(fWriterContainer);
 		bufferContainerJs.write("import React, { Component, PropTypes } from \'react\';\n"
 				+ "import { bindActionCreators } from \'redux\';\n" + "import request from \'axios\';\n"
 				+ "import { Link } from \'react-router\';\n" + "import classNames from \'classnames\';\n"
@@ -763,14 +771,16 @@ public class StartParser {
 				+ "</Paper>\n" + "</div>\n" + "</div>\n" + ");\n" + "}\n" + "}\n");
 		bufferContainerJs.close();
 
-		BufferedWriter bufferReducerJs = new BufferedWriter(new FileWriter(fileReducerJs));
+		FileWriter fWriterReducer = new FileWriter(fileReducerJs);
+		BufferedWriter bufferReducerJs = new BufferedWriter(fWriterReducer);
 		bufferReducerJs.write("import { combineReducers } from \'redux\';\n"
 				+ "import { routerStateReducer } from \'redux-router\';\n" + "import undoable from \'redux-undo\';\n"
 				+ "const rootReducer = combineReducers({\n" + "router : routerStateReducer\n" + "});\n"
 				+ "export default rootReducer;\n");
 		bufferReducerJs.close();
 
-		BufferedWriter bufferAction = new BufferedWriter(new FileWriter(bufferActionTELinkJs));
+		FileWriter fWriterBufferAction = new FileWriter(bufferActionTELinkJs);
+		BufferedWriter bufferAction = new BufferedWriter(fWriterBufferAction);
 		bufferAction.write("import request from \'axios\';\n\n\n" + "export const HOME='HOME';\n"
 				+ "export const HOMEGET='HOMEGET';\n" + "export const HOME_REQUEST='HOME_REQUEST';\n"
 				+ "export const HOME_SUCCESS='HOME_SUCCESS';\n" + "export const HOME_FAILURE='HOME_FAILURE';\n"
@@ -779,7 +789,8 @@ public class StartParser {
 				+ "promise:request.post('<>',formData.toString())\n" + "};\n" + "}");
 		bufferAction.close();
 
-		BufferedWriter bufferApiJs = new BufferedWriter(new FileWriter(fileApiJs));
+		FileWriter fWriterFileApi = new FileWriter(fileApiJs);
+		BufferedWriter bufferApiJs = new BufferedWriter(fWriterFileApi);
 		bufferApiJs.write(
 				"/**\n" + "* This looks at static needs parameter in components and waits for the promise to be fullfilled\n"
 						+ "* It is used to make sure server side rendered pages wait for APIs to resolve before returning res.end()\n"
@@ -793,7 +804,8 @@ public class StartParser {
 		/*
 		 * if (!fileApiJ.exists()) { fileApiJ.createNewFile(); }
 		 */
-		BufferedWriter bufferApis = new BufferedWriter(new FileWriter(fileApiJ));
+		FileWriter fWriterFileApiJ = new FileWriter(fileApiJ);
+		BufferedWriter bufferApis = new BufferedWriter(fWriterFileApiJ);
 		bufferApis.write("export default function promiseMiddleware() {\n" + "return next => action => {\n"
 				+ "const { promise, type, ...rest } = action;\n" + "if (!promise) return next(action);\n"
 				+ "const SUCCESS = type + \'_SUCCESS\';\n" + "const REQUEST = type + \'_REQUEST\';\n"
@@ -811,7 +823,8 @@ public class StartParser {
 		if (!fileHtml.exists()) {
 			fileHtml.createNewFile();
 		}
-		BufferedWriter bw = new BufferedWriter(new FileWriter(fileHtml));
+		FileWriter fWriterHtml = new FileWriter(fileHtml);
+		BufferedWriter bw = new BufferedWriter(fWriterHtml);
 		bw.write(".re_mainDiv{\n" + "height:auto;\n" + "width:80%;\n" + "border:1px solid black;\n"
 				+ "background-color:#D8D8D8;\n" + "position:absolute;\n" + "padding:10px;\n" + "}\n" + ".re_textbox{\n"
 				+ "width:200px;\n" + "height:25px;\n" + "margin-top:5px;\n" + "}\n" + ".re_selectBox{\n"
@@ -842,34 +855,42 @@ public class StartParser {
 
 		File listFiles[] = dirName.listFiles();
 
-		for (File filesName : listFiles) {
-			String name = filesName.getName();
-			if (name.contains(".js")) {
-				String fileNames = name.substring(0, name.indexOf("."));
+		InputStream is = null;
+		InputStreamReader iStrRead = null;
+		OutputStream out = null;
+		try {
+			for (File filesName : listFiles) {
+				String name = filesName.getName();
+				if (name.contains(".js")) {
+					String fileNames = name.substring(0, name.indexOf("."));
 
-				fileReducer = new File(output + fileNames + "_action.js");
-				fileReducer.createNewFile();
+					fileReducer = new File(output + fileNames + "_action.js");
+					fileReducer.createNewFile();
 
-				InputStream is = StartParser.class.getResourceAsStream("/placeHolder/placeHolderActionReducer.txt");
-				readAction = new BufferedReader(new InputStreamReader(is));
+					is = StartParser.class.getResourceAsStream("/placeHolder/placeHolderActionReducer.txt");
+					iStrRead = new InputStreamReader(is);
+					readAction = new BufferedReader(iStrRead);
 
+					String line = "";
+					String CompleteLine = "";
 
-				String line = "";
-				String CompleteLine = "";
+					while ((line = readAction.readLine()) != null) {
+						CompleteLine = CompleteLine + line;
+						CompleteLine = CompleteLine + "\n";
+					}
 
-				while ((line = readAction.readLine()) != null) {
-					CompleteLine = CompleteLine + line;
-					CompleteLine = CompleteLine + "\n";
+					CompleteLine = CompleteLine.replaceAll("@FileNameMarker", fileNames);
+
+					out = new FileOutputStream(fileReducer);
+					out.write(CompleteLine.getBytes());
 				}
-
-
-				is.close();
-				CompleteLine = CompleteLine.replaceAll("@FileNameMarker", fileNames);
-
-				OutputStream out = new FileOutputStream(fileReducer);
-				out.write(CompleteLine.getBytes());
-				out.close();
 			}
+		} finally {
+			is.close();
+			iStrRead.close();
+			readAction.close();
+			out.close();
+
 		}
 	}
 
